@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       data: [],
     }
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   submit = values => {
@@ -17,11 +18,18 @@ class App extends Component {
       data: [...this.state.data, values]
     });
   }
-  handleChange = values => {
+
+  deleteItem(item) {
+    const index = this.state.data.indexOf(item);
+    const { data } = this.state;
     this.setState({
-      data: [...this.state.data, values]
-    })
+      data: [
+        ...data.slice(0, index),
+        ...data.slice(index + 1)
+      ]
+    });
   }
+
   render() {
     return (
       <div>
@@ -33,7 +41,7 @@ class App extends Component {
               <th> Email </th>
               <th> First Name </th>
               <th> Last Name </th>
-              <th class="th-action"> Action </th>
+              <th className="th-action"> Action </th>
             </tr>
           </thead>
           <tbody>
@@ -43,16 +51,14 @@ class App extends Component {
                 <td> {item.email} </td>
                 <td> {item.firstName}</td>
                 <td> {item.lastName} </td>
-                <td class="td-action">
-                  <button class="btn-edit" onClick={this.handleChange}> Edit </button>
-                  <button class="btn-delete"> Delete</button>
+                <td className="td-action">
+                  <button className="btn-edit" > Edit </button>
+                  <button className="btn-delete" onClick={() => this.deleteItem(item)}> Delete</button>
                 </td>
               </tr>
             )}
           </tbody>
-          <br />
         </table>
-
 
       </div >
     );

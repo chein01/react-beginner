@@ -21,7 +21,7 @@ class ContactForm extends React.Component {
                     <Field name="lastName" component="input" type="text" />
                 </div>
                 <div>
-                    <label htmlFor="email" class="email-lable">Email</label>
+                    <label htmlFor="email" className="email-lable">Email</label>
                     <Field name="email" component="input" type="text" />
                 </div>
                 <div>

@@ -4,10 +4,17 @@ import { reset } from 'redux-form';
 
 
 class ContactForm extends React.Component {
+
     handleSubmit(e) {
         e.preventDefault();
         this.props.dispatch(reset("contact"));
         this.props.handleSubmit();
+    }
+    componentDidUpdate(previouProps) {
+        if (previouProps.contact !== this.props.contact) {
+            this.props.contact && this.props.initialize(this.props.contact);
+        }
+
     }
     render() {
         return (
@@ -35,6 +42,8 @@ class ContactForm extends React.Component {
 
 ContactForm = reduxForm({
     // a unique name for the form
-    form: 'contact'
+    form: 'contact',
+    enableReinitialize: true
 })(ContactForm)
-export default ContactForm
+
+export default ContactForm;

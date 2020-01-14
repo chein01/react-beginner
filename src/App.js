@@ -9,8 +9,11 @@ class App extends Component {
     super(props);
     this.state = {
       data: [],
+      initialValues: {},
+      contact: undefined
     }
     this.deleteItem = this.deleteItem.bind(this);
+    this.editItem = this.editItem.bind(this);
   }
 
   submit = values => {
@@ -22,6 +25,7 @@ class App extends Component {
   deleteItem(item) {
     const index = this.state.data.indexOf(item);
     const { data } = this.state;
+    console.log('adsasdasd')
     this.setState({
       data: [
         ...data.slice(0, index),
@@ -29,11 +33,20 @@ class App extends Component {
       ]
     });
   }
-
+  editItem(item) {
+    const index = this.state.data.indexOf(item);
+    console.log(index)
+    this.setState({
+      contact: item
+    });
+  }
   render() {
     return (
       <div>
-        <ContactForm onSubmit={this.submit} />
+        <ContactForm
+          onSubmit={this.submit}
+          contact={this.state.contact}
+        />
         <table>
           <thead>
             <tr>
@@ -52,7 +65,7 @@ class App extends Component {
                 <td> {item.firstName}</td>
                 <td> {item.lastName} </td>
                 <td className="td-action">
-                  <button className="btn-edit" > Edit </button>
+                  <button className="btn-edit" onClick={() => this.editItem(item)}> Edit </button>
                   <button className="btn-delete" onClick={() => this.deleteItem(item)}> Delete</button>
                 </td>
               </tr>

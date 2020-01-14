@@ -9,8 +9,10 @@ class App extends Component {
     super(props);
     this.state = {
       data: [],
+      initialValues: {},
     }
     this.deleteItem = this.deleteItem.bind(this);
+    this.editItem = this.editItem.bind(this);
   }
 
   submit = values => {
@@ -29,11 +31,19 @@ class App extends Component {
       ]
     });
   }
-
+  editItem(initialValues) {
+    this.setState({
+      initialValues
+    })
+  }
   render() {
+    const { initialValues } = this.state;
     return (
       <div>
-        <ContactForm onSubmit={this.submit} />
+        <ContactForm
+          // onSubmit={this.submit} form="user-form" 
+          contact={{ "username": "Roger" }}
+        />
         <table>
           <thead>
             <tr>
@@ -52,7 +62,7 @@ class App extends Component {
                 <td> {item.firstName}</td>
                 <td> {item.lastName} </td>
                 <td className="td-action">
-                  <button className="btn-edit" > Edit </button>
+                  <button className="btn-edit" onClick={() => this.editItem(item)}> Edit </button>
                   <button className="btn-delete" onClick={() => this.deleteItem(item)}> Delete</button>
                 </td>
               </tr>

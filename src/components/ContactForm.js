@@ -7,34 +7,18 @@ class ContactForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.dispatch(reset(this.props.form));
+        this.props.dispatch(reset("contact"));
         this.props.handleSubmit();
+    }
+    componentDidUpdate(previouProps) {
+        if (previouProps.contact !== this.props.contact) {
+            this.props.contact && this.props.initialize(this.props.contact);
+        }
 
     }
-    componentDidUpdate(preProps, preState) {
-        // console.log("22", this.props.initialValues);
-        // if (preProps.initialValues !== this.props.initialValues) {
-        //     console.log(this.props.initialValues);
-        // }
-    }
-    componentDidMount() {
-        console.log(this.props);
-        this.props.contact &&
-            this.props.initialize({
-                firstName: "Roger",
-                email: "admin@amin.a"
-            });
-        // this 
-        // state usser
-        // this.props.({
-        //     firstName: "AD"
-        // });
-
-    }
-
     render() {
         return (
-            <form onSubmit={this.props.handleSubmit((values) => this.handleSubmit(values))}>
+            <form onSubmit={(e) => this.handleSubmit(e)}>
                 <div>
                     <label htmlFor="firstName">First Name</label>
                     <Field name="firstName" component="input" type="text" />
@@ -50,6 +34,7 @@ class ContactForm extends React.Component {
                 <div>
                     <button type="submit">Submit</button>
                 </div>
+
             </form>
         )
     }

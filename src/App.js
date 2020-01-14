@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       data: [],
       initialValues: {},
+      contact: undefined
     }
     this.deleteItem = this.deleteItem.bind(this);
     this.editItem = this.editItem.bind(this);
@@ -24,6 +25,7 @@ class App extends Component {
   deleteItem(item) {
     const index = this.state.data.indexOf(item);
     const { data } = this.state;
+    console.log('adsasdasd')
     this.setState({
       data: [
         ...data.slice(0, index),
@@ -31,18 +33,19 @@ class App extends Component {
       ]
     });
   }
-  editItem(initialValues) {
+  editItem(item) {
+    const index = this.state.data.indexOf(item);
+    console.log(index)
     this.setState({
-      initialValues
-    })
+      contact: item
+    });
   }
   render() {
-    const { initialValues } = this.state;
     return (
       <div>
         <ContactForm
-          // onSubmit={this.submit} form="user-form" 
-          contact={{ "username": "Roger" }}
+          onSubmit={this.submit}
+          contact={this.state.contact}
         />
         <table>
           <thead>
